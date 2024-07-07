@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Reminiscencia App</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+			aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav m-auto">
+				<li *ngIf="isLoggedIn()" class="nav-item ml-9">
+					<a class="nav-link" routerLink="/pacientes" routerLinkActive="active">Pacientes</a>
+				</li>
+				<li *ngIf="isLoggedIn()" class="nav-item ml-9">
+					<a class="nav-link" routerLink="/recursos" routerLinkActive="active">Recursos</a>
+				</li>
+				<li *ngIf="isLoggedIn()" class="nav-item ml-9">
+					<a class="nav-link" routerLink="/terapias" routerLinkActive="active">Terapias</a>
+				</li>
+			</ul>
+			<form class="d-flex">
+				<ul class="navbar-nav me-auto">
+					<li *ngIf="!isLoggedIn()" class="nav-item">
+						<a class="nav-link" routerLink="/login">Iniciar sesión</a>
+					</li>
+					<li *ngIf="!isLoggedIn()" class="nav-item">
+						<a class="nav-link" routerLink="/register">Registrarse</a>
+					</li>
+					<li *ngIf="isLoggedIn()" class="nav-item">
+						<a class="nav-link" (click)="logout()" style="cursor: pointer;">Salir</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+</nav>

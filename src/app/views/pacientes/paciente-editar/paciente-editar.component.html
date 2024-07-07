@@ -1,0 +1,100 @@
+<div class="container">
+	<h3>Datos paciente</h3>
+	<form [formGroup]="formEditarPaciente" (ngSubmit)="actualizarPaciente(formEditarPaciente)">
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="">Nombre</label>
+					<input type="text" class="form-control" placeholder="Nombre" formControlName="nombrePaciente">
+				</div>
+				<div class="col-md-4">
+					<label for="">Primer apellido</label>
+					<input type="text" class="form-control" placeholder="Primer apellido" formControlName="apellido1Paciente">
+				</div>
+				<div class="col-md-4">
+					<label for="">Segundo apellido</label>
+					<input type="text" class="form-control" placeholder="Segundo apellido" formControlName="apellido2Paciente">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<label for="">Fecha de nacimiento</label>
+					<input type="date" class="form-control" formControlName="fechaNacimientoPaciente">
+				</div>
+				<div class="col-md-2">
+					<label></label>
+					<p>Institucionalizado</p>
+				</div>
+				<div class="col-md-2">
+					<label></label>
+					<input type="checkbox" class="form-check" formControlName="institucionalizado">
+				</div>
+			</div>
+			<div *ngIf="formEditarPaciente.get('institucionalizado')?.value" class="row">
+				<div class="col-md-4">
+					<label for="">Institución</label>
+					<input type="text" class="form-control" placeholder="Nombre institución" formControlName="nombreInstitucion">
+				</div>
+				<div class="col-md-4">
+					<label for="">Localidad</label>
+					<input type="text" class="form-control" placeholder="Localidad institución" formControlName="localidadInstitucion">
+				</div>
+				<div class="col-md-4">
+					<label for="">Fecha ingreso</label>
+					<input type="date" class="form-control" formControlName="fechaIngresoInstitucion">
+				</div>
+			</div>
+			<div *ngIf="!formEditarPaciente.get('institucionalizado')?.value" class="row">
+				<div class="col-md-3">
+					<label for="">Dirección</label>
+					<input type="text" class="form-control" placeholder="Nombre dirección" formControlName="nombreDireccion">
+				</div>
+				<div class="col-md-1">
+					<label for="">Número</label>
+					<input type="text" class="form-control" placeholder="Número" formControlName="numeroDireccion">
+				</div>
+				<div class="col-md-2">
+					<label for="">Piso y letra</label>
+					<input type="text" class="form-control" placeholder="Piso y letra, ejemplo: 2A" formControlName="pisoYletraDireccion">
+				</div>
+				<div class="col-md-3">
+					<label for="">Localidad</label>
+					<input type="text" class="form-control" placeholder="Localidad dirección" formControlName="localidadDireccion">
+				</div>
+				<div class="col-md-3">
+					<label for="">Provincia</label>
+					<input type="text" class="form-control" placeholder="Provincia dirección" formControlName="provinciaDireccion">
+				</div>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Actualizar datos</button>
+		<button 
+			type="button" 
+			class="btn btn-danger" 
+			data-bs-toggle="modal" 
+			data-bs-target="#confirmarEliminarModal">
+				Eliminar paciente
+		</button>
+		<button type="button" class="btn btn-secondary" (click)="volver()">Volver</button>
+	</form>
+	<!-- Modal -->
+	<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar paciente</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Pulsando el botón <i>Eliminar</i> se borrarán todos los datos de este paciente, ¿está seguro de querer continuar?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, cancelar</button>
+					<button type="button" class="btn btn-primary" (click)="eliminarPaciente()" data-bs-dismiss="modal">
+						Sí, eliminar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
