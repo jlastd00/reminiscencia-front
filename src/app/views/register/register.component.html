@@ -1,0 +1,93 @@
+<div class="row mt-4">
+	<div class="col-md-6 mx-auto">
+		<div class="card bg-light mb-3">
+			<h3 class="card-header text-center">
+				<div class="caja-img">
+					<img class="img-form" src="../../../assets/images/registro.png" alt="login">
+				</div>
+			</h3>
+			<div class="card-body">		
+				<form (ngSubmit)="onRegister(registerForm)" [formGroup]="registerForm">
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" formControlName="nombre"
+							id="inputNombre" placeholder="Nombre de usuario"
+							[ngClass]="registerForm.get('nombre')!.hasError('required') 
+							&& registerForm.get('nombre')!.touched ? 'is-invalid' : ''"
+						>
+						<label for="inputNombre">Nombre de usuario</label>
+						<span
+							*ngIf="registerForm.get('nombre')!.hasError('required') && registerForm.get('nombre')!.touched"
+							class="text-danger error-label">
+							El nombre de usuario es obligatorio
+						</span>
+					</div>
+					<div class="form-floating mb-3">
+						<select class="form-select" formControlName="role" id="selectRole">
+							<option value="TERAPEUTA">Terapeuta</option>
+							<option value="FAMILIAR">Familiar</option>
+						</select>
+						<label for="selectRole">Tipo de usuario</label>
+						<span
+							*ngIf="registerForm.get('role')!.hasError('pattern') && registerForm.get('role')!.touched"
+							class="text-danger error-label">
+							Es obligatorio seleccionar el tipo de usuario
+						</span>
+					</div>
+					<div class="form-floating mb-3">
+						<input 
+							type="email" class="form-control" formControlName="email" 
+							id="inputEmail" placeholder="name@example.com"
+							[ngClass]="(registerForm.get('email')!.hasError('required') || registerForm.get('email')!.hasError('pattern'))
+								&& registerForm.get('email')!.touched ? 'is-invalid' : ''"
+						>
+						<label for="inputEmail">Email</label>
+						<span
+							*ngIf="
+								(registerForm.get('email')!.hasError('required') || registerForm.get('email')!.hasError('pattern'))
+								&& registerForm.get('email')!.touched"
+							class="text-danger error-label">
+							Formato de email incorrecto
+						</span>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="password" class="form-control" formControlName="password"
+							id="inputPassword" placeholder="Contraseña"
+							[ngClass]="(registerForm.get('password')!.hasError('required') || registerForm.get('password')!.hasError('pattern')) 
+							&& registerForm.get('password')!.touched ? 'is-invalid' : ''"
+							>
+						<label for="inputPassword">Contraseña</label>
+						<span
+							*ngIf="(registerForm.get('password')!.hasError('required') || registerForm.get('password')!.hasError('pattern')) 
+							&& registerForm.get('password')!.touched"
+							class="text-danger error-label">
+							La contraseña debe tener mínimo 6 caracteres y contener al menos 1 mayúscula, 1 minúscula y 1 número
+						</span>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="password" class="form-control" formControlName="repassword"
+							id="inputRepassword" placeholder="Repetir contraseña"
+							[ngClass]="registerForm.get('password')?.value !== registerForm.get('repassword')?.value
+							&& registerForm.get('repassword')!.touched ? 'is-invalid' : ''"
+						>
+							<label for="inputRepassword">Repite contraseña</label>
+						<span
+							*ngIf="registerForm.get('password')?.value !== registerForm.get('repassword')?.value
+							&& registerForm.get('repassword')!.touched"
+							class="text-danger error-label">
+							Las contraseñas no coinciden
+						</span>
+					</div>
+					<div class="form-group py-3 mt-2 d-grid gap-2">
+						<button class="btn btn-lg btn-primary" type="submit">Guardar</button>
+					</div>
+					<div class="form-group mb-3">
+						¿Ya estás registrado?
+						<a routerLink="/login" class="link">
+							Iniciar Sesión
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

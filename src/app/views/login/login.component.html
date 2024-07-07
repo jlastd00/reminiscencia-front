@@ -1,0 +1,59 @@
+<div class="row mt-4">
+	<div class="col-md-6 mx-auto">
+		<div class="card bg-light mb-3 align-self-center">
+			<div class="caja-img">
+				<img class="img-form" src="../../../assets/images/login.png" alt="login" />
+			</div>
+			<div class="card-body">
+				<form (ngSubmit)="onLogin(loginForm)" [formGroup]="loginForm">
+					<div class="form-floating mb-3">
+						<input 
+							type="email" class="form-control" formControlName="email" 
+							id="inputEmail" placeholder="name@example.com"
+							[ngClass]="(loginForm.get('email')!.hasError('required') || loginForm.get('email')!.hasError('pattern'))
+								&& loginForm.get('email')!.touched ? 'is-invalid' : ''"
+							>
+						<label for="inputEmail">Email</label>
+						<span
+							*ngIf="
+								(loginForm.get('email')!.hasError('required') || loginForm.get('email')!.hasError('pattern'))
+								&& loginForm.get('email')!.touched"
+							class="text-danger error-label">
+							Formato de email incorrecto
+						</span>
+					</div>
+					<div class="form-floating">
+						<input type="password" class="form-control" formControlName="password"
+							id="inputPassword" placeholder="Contraseña"
+							[ngClass]="(loginForm.get('password')!.hasError('required') || loginForm.get('password')!.hasError('pattern')) 
+							&& loginForm.get('password')!.touched ? 'is-invalid' : ''"
+							>
+						<label for="inputPassword">Contraseña</label>
+						<span
+							*ngIf="(loginForm.get('password')!.hasError('required') || loginForm.get('password')!.hasError('pattern')) && loginForm.get('password')!.touched"
+							class="text-danger error-label">
+							La contraseña debe tener mínimo 6 caracteres y contener al menos 1 mayúscula, 1 minúscula y 1 número
+						</span>
+					</div>
+					<div class="form-group py-3 mt-2 d-grid gap-2">
+						<button class="btn btn-lg btn-primary" type="submit">
+							Acceder
+						</button>
+					</div>
+					<div class="form-group mb-3">
+						¿Has olvidado la contraseña?
+						<a routerLink="" class="link">
+							Recuperar Contraseña
+						</a>
+					</div>
+					<div class="form-group mb-3">
+						¿Aún no te has registrado?
+						<a routerLink="/register" class="link">
+							Regístrate Ahora
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
