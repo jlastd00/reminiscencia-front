@@ -1,25 +1,25 @@
 <div *ngIf="recursos.length > 0" class="container">
-	<h3>Lista de pacientes</h3>
+	<h3>Lista de recursos</h3>
 	<button type="button" class="btn btn-primary" (click)="nuevoRecurso()">
-		Nuevo paciente
+		Nuevo recurso
 	</button>
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th scope="col">Fecha de inserción</th>
 				<th scope="col">Nombre</th>
-				<th scope="col">Apellidos</th>
-				<th scope="col">Fecha de nacimiento</th>
-				<th scope="col">Diagnóstico</th>
+				<th scope="col">Fecha de inserción</th>
+				<th scope="col">Formato</th>
+				<th scope="col">Tipo</th>
+				<th scope="col">Descripción</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let recurso of recursos" (click)="editarRecurso(recurso._id)">
 				<td scope="col">{{ recurso.nombre }}</td>
 				<td scope="col">{{ recurso.fechaInsercion | date:'dd/MM/yyyy' }}</td>
-				<td scope="col">{{ recurso.esPublico }}</td>
 				<td scope="col">{{ recurso.formato }}</td>
 				<td scope="col">{{ recurso.tipo }}</td>
+				<td scope="col">{{ recurso.descripcion }}</td>
 			</tr>
 		</tbody>
 	</table>

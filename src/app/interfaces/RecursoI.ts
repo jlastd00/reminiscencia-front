@@ -9,6 +9,6 @@ export interface RecursoI {
 	formato: string,
 	tipo: string,
 	fechaReferencia: string,
-	descripcion: string,
+	descripcion: string
 }
 

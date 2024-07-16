@@ -1,1 +1,30 @@
-<p>terapia-lista works!</p>
+<div *ngIf="terapias.length > 0" class="container">
+	<h3>Lista de terapias</h3>
+	<button type="button" class="btn btn-primary" (click)="nuevaTerapia()">
+		Nueva terapia
+	</button>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Nombre</th>
+				<th scope="col">Descripción</th>
+				<th scope="col">Tipo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let terapia of terapias" (click)="editarTerapia(terapia._id)">
+				<td scope="col">{{ terapia.nombre }}</td>
+				<td scope="col">{{ terapia.descripcion }}</td>
+				<td scope="col">{{ terapia.tipo }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div *ngIf="terapias.length <= 0" class="container text-center">
+	<h3>La lista de terapias está vacía</h3>
+	<button type="button" class="btn btn-primary" (click)="nuevaTerapia()">
+		Nueva terapia
+	</button>
+</div>
+

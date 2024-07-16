@@ -1,0 +1,65 @@
+<div class="container">
+	<h3>Datos terapia</h3>
+	<form [formGroup]="formEditarTerapia" (ngSubmit)="actualizarTerapia(formEditarTerapia)">
+		<div class="form-group">
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Nombre</label>
+					<input type="text" class="form-control" placeholder="Nombre de la terapia" formControlName="nombre">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Tipo</label>
+					<select class="form-select" formControlName="tipo">
+						<option value="PUBLICA">Pública</option>
+						<option value="PRIVADA">Privada</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Descripcion</label>
+					<textarea 
+						class="form-control" 
+						placeholder="Descripción de la terapia" 
+						formControlName="descripcion" rows="3">
+					</textarea>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<button type="submit" class="btn btn-primary">Actualizar datos</button>
+					<button 
+						type="button" 
+						class="btn btn-danger" 
+						data-bs-toggle="modal" 
+						data-bs-target="#confirmarEliminarModal">
+							Eliminar terapia
+					</button>
+					<button type="button" class="btn btn-secondary" (click)="volver()">Volver</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- Modal -->
+	<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar terapia</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Pulsando el botón <i>Eliminar</i> se borrarán todos los datos de esta terapia, ¿está seguro de querer continuar?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, cancelar</button>
+					<button type="button" class="btn btn-primary" (click)="eliminarTerapia()" data-bs-dismiss="modal">
+						Sí, eliminar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

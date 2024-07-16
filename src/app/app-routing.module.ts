@@ -12,6 +12,8 @@ import { RecursoNuevoComponent } from './views/recursos/recurso-nuevo/recurso-nu
 import { RecursoEditarComponent } from './views/recursos/recurso-editar/recurso-editar.component';
 import { TerapiaListaComponent } from './views/terapias/terapia-lista/terapia-lista.component';
 import { TerapiaNuevaComponent } from './views/terapias/terapia-nueva/terapia-nueva.component';
+import { TerapiaEditarComponent } from './views/terapias/terapia-editar/terapia-editar.component';
+import { TerapiaIniciarComponent } from './views/terapias/terapia-iniciar/terapia-iniciar.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,6 +27,8 @@ const routes: Routes = [
 	{ path: 'recursos/:idRecurso', component: RecursoEditarComponent, canActivate: [ AuthGuard ] },
 	{ path: 'terapias', component: TerapiaListaComponent, canActivate: [ AuthGuard ] },
 	{ path: 'terapias/nueva', component: TerapiaNuevaComponent, canActivate: [ AuthGuard ] },
+	{ path: 'terapias/:idTerapia', component: TerapiaEditarComponent, canActivate: [ AuthGuard ] },
+	{ path: 'terapias/inicio/:idTerapia/:idPaciente', component: TerapiaIniciarComponent, canActivate: [ AuthGuard ] },
 	{ path: 'notFound', component: PageNotFoundComponent },
 	{ path: '**', redirectTo: 'notFound' },
 ];
@@ -45,5 +49,7 @@ export const routingComponents = [
 	RecursoNuevoComponent,
 	RecursoEditarComponent,
 	TerapiaListaComponent,
-	TerapiaNuevaComponent
+	TerapiaNuevaComponent,
+	TerapiaEditarComponent,
+	TerapiaIniciarComponent
 ];

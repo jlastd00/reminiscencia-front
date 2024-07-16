@@ -3,7 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PacienteService } from 'src/app/api/paciente.service';
+import { TerapiaService } from 'src/app/api/terapia.service';
 import { PacienteI } from 'src/app/interfaces/PacienteI';
+import { TerapiaI } from 'src/app/interfaces/TerapiaI';
 
 @Component({
 	selector: 'app-paciente-editar',
@@ -14,6 +16,9 @@ export class PacienteEditarComponent implements OnInit {
 
 	idpaciente: any;
 	paciente!: PacienteI;
+	terapiasPaciente: TerapiaI[] = [];
+	terapiaSelected!: TerapiaI;
+	terapias: TerapiaI[] = [];
 
 	formEditarPaciente = new FormGroup({
 		nombrePaciente: new FormControl(''),
@@ -31,10 +36,15 @@ export class PacienteEditarComponent implements OnInit {
 		provinciaDireccion: new FormControl(''),
 	});
 
+	formIniciarTerapia = new FormGroup({
+		terapia: new FormControl('0')
+	});
+
 	constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private pacienteService: PacienteService,
+		private terapiaService: TerapiaService,
 		private toastrService: ToastrService
 	) {}
 
@@ -44,12 +54,23 @@ export class PacienteEditarComponent implements OnInit {
 			next: res => {
 				if (res.ok) {
 					this.paciente = res.paciente;
+					this.terapiasPaciente = res.paciente.terapias;
 					this.crearFormPaciente();
 				}
 			},
 			error: responseError => {
 				console.log(responseError.error.errorMsg);
 				this.router.navigate(['pacientes']);
+			}
+		});
+		this.terapiaService.getAllTerapias().subscribe({
+			next: res => {
+				if (res.ok) {
+					this.terapias = res.terapias;
+				}
+			},
+			error: resError => {
+				this.toastrService.error(resError.error.errorMsg);
 			}
 		});
 	}
@@ -72,8 +93,8 @@ export class PacienteEditarComponent implements OnInit {
 		this.pacienteService.updatePaciente(this.idpaciente, this.paciente).subscribe({
 			next: res => {
 				if (res.ok) {
-					this.toastrService.success(res.msg, "Ok");
-					this.router.navigate(['pacientes']);
+					this.toastrService.success(res.msg, "Éxito");
+					this.router.navigate(['/pacientes']);
 				}
 			},
 			error: resError => {
@@ -86,8 +107,8 @@ export class PacienteEditarComponent implements OnInit {
 		this.pacienteService.deletePaciente(this.idpaciente).subscribe({
 			next: res => {
 				if (res.ok) {
-					this.toastrService.success(res.msg, "Ok");
-					this.router.navigate(['pacientes']);
+					this.toastrService.success(res.msg, "Éxito");
+					this.router.navigate(['/pacientes']);
 				}
 			},
 			error: resError => {
@@ -96,8 +117,48 @@ export class PacienteEditarComponent implements OnInit {
 		});
 	}
 
+	iniciarTerapia(formdata: FormGroup) {
+		if (formdata.value.terapia === "0") {
+			this.toastrService.warning("No se puede inicir una terapia sin haber seleccionado alguna", "Aviso");
+			return;
+		}
+
+		this.terapiaService.getTerapia(formdata.value.terapia).subscribe({
+			next: res => {
+				if (res.ok) {
+					this.terapiaSelected = res.terapia;
+					this.actualizarListaPacientes();
+				}
+			},
+			error: resError => {
+				this.toastrService.error(resError.error.errorMsg, "Error");
+			}
+		});
+	}
+
+	actualizarListaPacientes() {
+		if (!this.paciente.terapias.find(t => t === this.terapiaSelected._id)) {
+			this.paciente.terapias.push(this.terapiaSelected._id);
+		}
+
+		this.pacienteService.updatePaciente(this.paciente._id, this.paciente).subscribe({
+			next: res => {
+				if (res.ok) {
+					this.ejecutarTerapia(this.terapiaSelected._id);
+				}
+			},
+			error: resError => {
+				this.toastrService.error(resError.error.errorMsg, "Error");
+			}
+		});
+	}
+
+	ejecutarTerapia(id: string) {
+		this.router.navigate(['/terapias/inicio/' + id + "/" + this.paciente._id]);
+	}
+
 	volver() {
-		this.router.navigate(['pacientes']);
+		this.router.navigate(['/pacientes']);
 	}
 
 	crearFormPaciente() {

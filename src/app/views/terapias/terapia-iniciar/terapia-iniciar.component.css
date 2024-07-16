@@ -17,11 +17,7 @@ h3 {
 	text-align: center;
 }
 
-.caja-recurso {
-	margin: 5px auto;
-	width: 200px;
-}
-
-img {
-	width: 100%;
+iframe {
+	border: 1px solid black;
+	width: 100%; /* takes precedence over the width set with the HTML width attribute */
 }

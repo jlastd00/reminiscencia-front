@@ -1,10 +1,12 @@
+import { TerapiaI } from "./TerapiaI"
+
 export interface PacienteI {
 	_id: string,
 	foto: FotoI,
 	datosPersonales: DatosPersonalesI,
 	diagnosticosYpruebas: DiagnosticosYpruebasI,
 	historiaVida: HistoriaVidaI,
-	terapias: []
+	terapias: string[]
 }
 
 interface FotoI {

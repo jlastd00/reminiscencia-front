@@ -1,1 +1,85 @@
-<p>recurso-nuevo works!</p>
+<div class="container">
+	<h3>Nuevo recurso</h3>
+	<form [formGroup]="formNuevoRecurso" (ngSubmit)="crearRecurso(formNuevoRecurso)">
+		<div class="form-group">
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Nombre</label>
+					<input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-check-label">¿Es público?</label>
+					&nbsp;&nbsp;
+					<label class="form-check-label">
+						<label class="form-check-label">Sí</label> &nbsp;
+						<input class="form-check-input" type="radio" value="SI" formControlName="publico">
+					</label>
+					&nbsp;&nbsp;
+					<label class="form-check-label">
+						<label class="form-check-label">No</label> &nbsp;
+						<input class="form-check-input" type="radio" value="NO" formControlName="publico">
+					</label>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Formato</label>
+					<select class="form-select" formControlName="formato">
+						<option value="web">Recurso web</option>
+						<option value="image">Fotografía</option>
+						<!-- <option value="audio">Audio</option> -->
+						<!-- <option value="video">Video</option> -->
+					</select>
+				</div>
+			</div>
+			<div *ngIf="formNuevoRecurso.get('formato')?.value === 'web'" class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">URL</label>
+					<input type="text" class="form-control" placeholder="url del recurso" formControlName="url">
+				</div>
+			</div>
+			<div *ngIf="formNuevoRecurso.get('formato')?.value !== 'web'" class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Archivo</label>
+					<input class="form-control" type="file" (change)="onLoad($event)">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Tipo</label>
+					<select class="form-select" formControlName="tipo">
+						<option value="Objeto cotidiano del hogar">Objeto cotidiano del hogar</option>
+						<option value="Objeto cotidiano del trabajo">Objeto cotidiano del trabajo</option>
+						<option value="Otros objetos">Otros objetos</option>
+						<option value="Juguete">Juguete</option>
+						<option value="Familiar">Familiar</option>
+						<option value="Amigos">Amigos</option>
+						<option value="Otras personas">Otras personas</option>
+						<option value="Canción">Canción</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Fecha de referencia</label>
+					<input type="date" class="form-control" formControlName="fechaReferencia">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-12">
+					<label class="form-label">Descripcion</label>
+					<textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="button" class="btn btn-secondary" (click)="volver()">Volver</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+

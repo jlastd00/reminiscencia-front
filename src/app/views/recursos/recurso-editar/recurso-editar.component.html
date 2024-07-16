@@ -1,1 +1,89 @@
-<p>recurso-editar works!</p>
+<div class="container">
+	<h3>Datos recurso</h3>
+	<form [formGroup]="formEditarRecurso" (ngSubmit)="actualizarRecurso(formEditarRecurso)">
+		<div class="form-group">
+			<div class="row">
+				<div [ngClass]="formEditarRecurso.get('formato')?.value === 'web' ? 'col-md-12' : 'col-md-6'">
+					<div class="col-md-12 mb-3">
+						<label class="form-label">Nombre</label>
+						<input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+					</div>
+					<div class="col-md-12">
+						<label class="form-label">Descripción</label>
+						<textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
+					</div>
+				</div>
+				<div *ngIf="formEditarRecurso.get('formato')?.value === 'image'" class="col-md-6">
+					<div class="caja-recurso">
+						<img [src]="urlRecurso" class="img-fluid" alt="imagen">
+					</div>
+				</div>
+				<!-- <div *ngIf="formEditarRecurso.get('formato')?.value === 'audio'" class="col-md-6">
+					<div class="caja-recurso">
+						<img [src]="urlRecurso" class="img-fluid" alt="imagen">
+					</div>
+				</div>
+				<div *ngIf="formEditarRecurso.get('formato')?.value === 'video'" class="col-md-6">
+					<div class="caja-recurso">
+						<img [src]="urlRecurso" class="img-fluid" alt="imagen">
+					</div>
+				</div> -->
+			</div>
+			<div *ngIf="formEditarRecurso.get('formato')?.value === 'web'" class="row">
+				<div class="col-md-12">
+					<label class="form-label">URL</label>
+					<input type="text" class="form-control" formControlName="url" readonly>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label class="form-label">Formato</label>
+					<input type="text" class="form-control" formControlName="formato" readonly>
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Tipo</label>
+					<input type="text" class="form-control" formControlName="tipo" readonly>
+				</div>
+				<div class="col-md-2">
+					<label class="form-label">¿Es público?</label>
+					<input type="text" class="form-control" formControlName="publico" readonly>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Fecha de referencia</label>
+					<input type="date" class="form-control" formControlName="fechaReferencia" readonly>
+				</div>
+			</div>
+			
+		</div>
+		<button type="submit" class="btn btn-primary">Actualizar datos</button>
+		<button 
+			type="button" 
+			class="btn btn-danger" 
+			data-bs-toggle="modal" 
+			data-bs-target="#confirmarEliminarModal">
+				Eliminar recurso
+		</button>
+		<button type="button" class="btn btn-secondary" (click)="volver()">Volver</button>
+	</form>
+	<!-- Modal -->
+	<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar recurso</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Pulsando el botón <i>Eliminar</i> se borrarán todos los datos de este recurso, ¿está seguro de querer continuar?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, cancelar</button>
+					<button type="button" class="btn btn-primary" (click)="eliminarRecurso()" data-bs-dismiss="modal">
+						Sí, eliminar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
